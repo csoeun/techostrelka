@@ -1,38 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Профиль</title>
-    <link rel="stylesheet" href="/static/css/styles.css" />
-  </head>
 
-  <body>
-    <br />
-    <div class="topnav">
-      <img src="/static/img/Vector.png" class="logo" alt="" />
-      <a href="/profile" class="active">Профиль</a>
-      <a href="/login">Войти</a>
-      <a href="/olymp">Перечень олимпиад</a>
-      <a href="/">Главная</a>
-    </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Профиль</title>
+  <link rel="stylesheet" href="/static/css/styles.css" />
+</head>
 
-    <div class="container">
-      <h3 id="usernamePlaceholder">username</h3>
-      <h1>Статистика</h1>
-    </div>
+<body>
+  <br />
+  <div class="topnav">
+    <img src="/static/img/Vector.png" class="logo" alt="" />
+    <a href="/profile" class="active">Профиль</a>
+    <a href="/login">Войти</a>
+    <a href="/olymp">Перечень олимпиад</a>
+    <a href="/">Главная</a>
+  </div>
 
-    <script>
-      function getCookie(name) {
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; ${name}=`);
-        if (parts.length === 2) return parts.pop().split(";").shift();
-      }
+  <div class="container">
+    <h3 id="usernamePlaceholder">username</h3>
+    <h1>Статистика</h1>
+  </div>
 
-      const username = getCookie("login");
-      if (username) {
-        document.getElementById("usernamePlaceholder").innerText = username;
-      }
-    </script>
-  </body>
+  <script>
+    function getCookie(name) {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(";").shift();
+    }
+
+    const username = getCookie("login");
+    if (username) {
+      document.getElementById("usernamePlaceholder").innerText = username;
+    }
+  </script>
+</body>
+
 </html>

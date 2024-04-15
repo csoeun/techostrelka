@@ -42,7 +42,7 @@ func main() {
 	r.GET("/profile", handlers.Profile(db))
 
 	r.GET("/admin", handlers.Admin)
-	r.POST("/admin", handlers.AddContest(db	))
+	r.POST("/admin", handlers.AddContest(db))
 
 	r.Run(":8080")
 }
