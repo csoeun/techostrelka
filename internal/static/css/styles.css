@@ -38,6 +38,7 @@ button{
     background-color: white;
     color: #D54C3D;
     cursor: pointer;
+    margin-top: 10px;
 }
 
 .circles{

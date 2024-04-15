@@ -78,7 +78,7 @@ func Contests(db *sql.DB) gin.HandlerFunc {
 			}
 			arr = append(arr, map[string]any{
 				"id": contest.id,
-				"title": contest.id,
+				"title": contest.title,
 				"description": contest.description,
 				"link": contest.link,
 			})
