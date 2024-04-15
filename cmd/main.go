@@ -44,5 +44,7 @@ func main() {
 	r.GET("/admin", handlers.Admin)
 	r.POST("/admin", handlers.AddContest(db))
 
+	r.GET("/api/contest", handlers.Contests(db))
+
 	r.Run(":8080")
 }
