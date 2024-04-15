@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Регистрация</title>
+    <link rel="stylesheet" href="/static/css/styles.css" />
+  </head>
+  <body>
+    <section class="inputs">
+      <h1>Регистрация</h1>
+      <input type="text" id="email" placeholder="Почта" />
+      <input type="text" id="username" placeholder="Имя пользователя" />
+      <input type="password" id="password" placeholder="Пароль" />
+      <button onclick="register()">Зарегистрироваться</button>
+    </section>
+    <script src="/static/js/script.js"></script>
+    <script>
+      function register() {
+        const email = document.getElementById("email").value;
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+
+        fetch("/register", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, username, password }),
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Network response was not ok");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            console.log(data);
+          })
+          .catch((error) => {
+            // Handle errors
+            console.error("There was a problem with the registration:", error);
+          });
+      }
+    </script>
+  </body>
+</html>
