@@ -1,17 +1,17 @@
 package main
 
 import (
-	"net/http"
-
 	"github.com/gin-gonic/gin"
+	"technostrelka/internal/handlers"
 )
 
-func main() {
+func main() {	
 	r := gin.Default()
 
-	r.GET("/", func(c *gin.Context) {
-		c.String(http.StatusOK, "hey")
-	})
+	r.Static("/static", "./internal/static")
+	r.LoadHTMLGlob("./internal/static/html/*.html")
+
+	r.GET("/", handlers.Index)
 
 	r.Run(":8080")
 }
