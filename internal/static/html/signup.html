@@ -21,7 +21,7 @@
         <img class="circles" src="/static/img/bluredcircels.png" alt="">
 
         <h1>Регистрация</h1>
-        <input type="text" id="username" placeholder="Имя пользователя" />
+        <input type="text" id="login" placeholder="Имя пользователя" />
         <input type="password" id="password" placeholder="Пароль" />
         <br>
         <button onclick="register()">Зарегистрироваться</button>
@@ -31,7 +31,7 @@
   <script src="/static/js/script.js"></script>
   <script>
     function register() {
-      const username = document.getElementById("username").value;
+      const login = document.getElementById("login").value;
       const password = document.getElementById("password").value;
 
       fetch("/signup", {
@@ -39,7 +39,7 @@
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ login, password }),
       })
         .then((response) => {
           if (!response.ok) {

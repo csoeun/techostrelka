@@ -30,16 +30,15 @@ func SignupPOST(db *sql.DB) gin.HandlerFunc {
 
 		if userExists(db, res["login"]) {
 			fmt.Println("there's such user")
-
-			_, err := db.Exec("insert into users (login, password) values ($1, $2)",
-				res["login"], res["password"])
-			if err != nil {
-				panic(err)
-			}
-
 			c.JSON(http.StatusTeapot, gin.H{})
 		} else {
 			fmt.Println("no such user")
+
+			_, err := db.Exec("INSERT INTO users (login, password) VALUES ($1, $2)", res["login"], res["password"])
+			if err != nil {
+				panic(err)
+			}
+			
 			c.JSON(http.StatusOK, gin.H{})
 		}
 	}
