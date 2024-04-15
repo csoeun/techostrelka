@@ -76,3 +76,8 @@ button{
     width: 150px;
   }
   
+  .company-info{
+    display: flex;
+    width: 100vw;
+    
+  }

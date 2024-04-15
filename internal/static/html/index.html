@@ -6,9 +6,7 @@
     <title>Главная</title>
     <link rel="stylesheet" href="/static/css/styles.css" />
   </head>
-
   <body>
-    <br />
     <div class="topnav">
       <img src="/static/img/Vector.png" class="logo" alt="" />
       <a href="/profile" class="active">Профиль</a>
@@ -16,6 +14,28 @@
       <a href="/olymp">Перечень олимпиад</a>
       <a href="/">Главная</a>
     </div>
-    <img class="circles" src="/static/img/bluredcircels.png" alt="" />
+
+    <div class="company-info">
+      <h1 style="font-size: 50px">ИТ-КУБОК</h1>
+      <p>Описание вашей компании...</p>
+    </div>
+
+    <div class="olymp-list">
+      <h2>Перечень олимпиад</h2>
+    </div>
+
+    <script>
+      fetch("/olympiads")
+        .then((response) => response.json())
+        .then((data) => {
+          const olympList = document.querySelector(".olymp-list");
+          data.forEach((olymp) => {
+            const olympItem = document.createElement("div");
+            olympItem.innerHTML = `<p>${olymp.name}</p>`;
+            olympList.appendChild(olympItem);
+          });
+        })
+        .catch((error) => console.error("Ошибка загрузки данных:", error));
+    </script>
   </body>
 </html>
