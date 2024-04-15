@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Главная</title>
+    <link rel="stylesheet" href="/static/css/styles.css" />
+    <style>
+        .olymp-list {
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+            gap: 20px;
+        }
+
+        .olymp-item {
+            width: 200px;
+            padding: 10px;
+            text-align: center;
+        }
+
+        img {
+            border-radius: 5px;
+            width: 200px;
+        }
+
+        a {
+            text-decoration: none;
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <br>
+    <div class="topnav">
+        <img src="/static/img/Vector.png" class="logo" alt="" />
+        <a href="/profile" class="active">Профиль</a>
+        <a href="/login">Войти</a>
+        <a href="/list">Перечень олимпиад</a>
+        <a href="/">Главная</a>
+    </div>
+
+    <h2>Перечень олимпиад</h2>
+    <div class="olymp-list">
+    </div>
+
+    <script>
+        fetch("/api/contest")
+            .then((response) => response.json())
+            .then((data) => {
+                const olympList = document.querySelector(".olymp-list");
+                data.forEach((olymp) => {
+                    const olympItem = document.createElement("div");
+                    olympItem.classList.add("olymp-item");
+                    olympItem.innerHTML = `
+            <img src="${olymp.img}" alt="${olymp.title}">
+            <p>${olymp.title}</p>
+
+            <button><a href="${olymp.link}">Зайти</a></button>
+          `;
+                    olympList.appendChild(olympItem);
+                });
+            })
+            .catch((error) => console.error("Ошибка загрузки данных:", error));
+    </script>
+</body>
+
+</html>

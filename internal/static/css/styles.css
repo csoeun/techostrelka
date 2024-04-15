@@ -1,84 +1,84 @@
 body {
-    overflow: hidden;
-    background-color: #070508;
-    color: white;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif ;
+  overflow-x: hidden;
+  background-color: #070508;
+  color: white;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-.container{
-    height: 80vh;
-    width: 100vw;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+.container {
+  height: 80vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 section {
-    display: flex;
-    flex-direction: column;
-    z-index: 100;
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
 }
 
-input{
-    border: none;
-    border-radius: 5px;
-    height: 30px;
-    margin-top: 10px;
-    width: 300px;
+input {
+  border: none;
+  border-radius: 5px;
+  height: 30px;
+  margin-top: 10px;
+  width: 300px;
 
-    color: black;
+  color: black;
 }
 
-button{
-    border: none;
-    width: 150px;
-    border-radius: 10px;
-    height: 30px;
-    background-color: white;
-    color: #D54C3D;
-    cursor: pointer;
-    margin-top: 10px;
+button {
+  border: none;
+  width: 150px;
+  border-radius: 10px;
+  height: 30px;
+  background-color: white;
+  color: #D54C3D;
+  cursor: pointer;
+  margin-top: 10px;
 }
 
-.circles{
-    position: absolute;
-    z-index: -1;
+.circles {
+  position: absolute;
+  z-index: -1;
 }
 
-.logo{
-    width: 200px;
-    margin-left: 10px;
+.logo {
+  width: 200px;
+  margin-left: 10px;
 }
 
-  
-  .topnav a {
-    float: right;
-    display: block;
-    color: #f2f2f2;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 17px;
-  }
-  
-  .topnav a:hover {
-    background-color: #ddd;
-    color: black;
-  }
-  
-  
-  .topnav .icon {
-    display: none;
-  }
 
-  .profile{
-    border-radius: 100%;
-    width: 150px;
-  }
-  
-  .company-info{
-    display: flex;
-    width: 100vw;
-    
-  }
+.topnav a {
+  float: right;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+
+.topnav .icon {
+  display: none;
+}
+
+.profile {
+  border-radius: 100%;
+  width: 150px;
+}
+
+.company-info {
+  display: flex;
+  width: 100vw;
+
+}

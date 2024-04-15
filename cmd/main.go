@@ -40,6 +40,7 @@ func main() {
 	r.POST("/signup", handlers.SignupPOST(db))
 
 	r.GET("/profile", handlers.Profile(db))
+	r.GET("/list", handlers.List(db))
 
 	r.GET("/admin", handlers.Admin)
 	r.POST("/admin", handlers.AddContest(db))

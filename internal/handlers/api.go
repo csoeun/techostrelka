@@ -24,7 +24,7 @@ func AddContest(db *sql.DB) gin.HandlerFunc {
 
 		fmt.Println(jsn)
 
-		_, err = db.Exec("INSERT INTO contests (id, title, description, link) VALUES ($1, $2, $3, $4)", lastId, jsn["title"], jsn["description"], jsn["link"])
+		_, err = db.Exec("INSERT INTO contests (id, title, description, link, img) VALUES ($1, $2, $3, $4, $5)", lastId, jsn["title"], jsn["description"], jsn["link"], jsn["img"])
 		if err != nil {
 			panic(err)
 		}
@@ -85,6 +85,7 @@ func Contests(db *sql.DB) gin.HandlerFunc {
 				"img":         contest.img,
 			})
 		}
+		fmt.Println(arr)
 
 		c.JSON(http.StatusOK, arr)
 	}
