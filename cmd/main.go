@@ -41,5 +41,7 @@ func main() {
 
 	r.GET("/profile", handlers.Profile(db))
 
+	r.GET("/admin", handlers.Admin)
+
 	r.Run(":8080")
 }
