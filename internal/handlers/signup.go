@@ -16,7 +16,6 @@ func Signup(c *gin.Context) {
 
 func SignupPOST(db *sql.DB) gin.HandlerFunc {
 	return func(c *gin.Context) {
-
 		bts, err := io.ReadAll(c.Request.Body)
 
 		if err != nil {
