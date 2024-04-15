@@ -16,7 +16,8 @@ func main() {
 	defer db.Close()
 
 	sts := `DROP TABLE IF EXISTS users;
-		CREATE TABLE users(login TEXT PRIMARY KEY, password TEXT);`
+		CREATE TABLE users(login TEXT PRIMARY KEY, password TEXT);
+		INSERT INTO USERS (login, password) VALUES ("admin", "root")`
 	_, err = db.Exec(sts)
 
 	if err != nil {
