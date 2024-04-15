@@ -29,8 +29,6 @@ func LoginPOST(db *sql.DB) gin.HandlerFunc {
 
 		if userExists(db, res["login"]) {
 			fmt.Println("there's such user")
-			c.JSON(http.StatusTeapot, gin.H{})
-			fmt.Println("no such user")
 
 			if !userAndPasswordCheck(db, res["login"], res["password"]) {
 				fmt.Println("password incorrect")
