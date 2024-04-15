@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Главная</title>
+    <title>Профиль</title>
     <link rel="stylesheet" href="/static/css/styles.css" />
   </head>
 
@@ -15,6 +15,24 @@
       <a href="#profile">Главная</a>
     </div>
 
-    <img class="circles" src="/static/img/bluredcircels.png" alt="" />
+    <div class="container">
+      <h3 id="usernamePlaceholder">username</h3>
+      <h1>Статистика</h1>
+    </div>
+
+    <script>
+      // Получение значения куки "login"
+      function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(";").shift();
+      }
+
+      // Получение имени пользователя из куки и вставка его на страницу
+      const username = getCookie("login");
+      if (username) {
+        document.getElementById("usernamePlaceholder").innerText = username;
+      }
+    </script>
   </body>
 </html>
