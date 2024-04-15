@@ -9,17 +9,27 @@
 </head>
 
 <body>
-  <section class="inputs">
-    <h1>Регистрация</h1>
-    <input type="text" id="email" placeholder="Почта" />
-    <input type="text" id="username" placeholder="Имя пользователя" />
-    <input type="password" id="password" placeholder="Пароль" />
-    <button onclick="register()">Зарегистрироваться</button>
+  <section class="regi">
+    <div class="topnav">
+        <img src="/static/img/Vector.png" class="logo" alt="">
+        <a href="#home" class="active">Профиль</a>
+        <a href="#olympics">Перечень олимпиад</a>
+        <a href="#profile">Главная</a>
+      </div>
+    <div class="container">
+        <img class="circles" src="/static/img/bluredcircels.png" alt="">
+
+        <h1>Регистрация</h1>
+        <input type="text" id="username" placeholder="Имя пользователя" />
+        <input type="password" id="password" placeholder="Пароль" />
+        <br>
+        <button onclick="register()">Зарегистрироваться</button>
+    
+    </div>
   </section>
   <script src="/static/js/script.js"></script>
   <script>
     function register() {
-      const email = document.getElementById("email").value;
       const username = document.getElementById("username").value;
       const password = document.getElementById("password").value;
 
