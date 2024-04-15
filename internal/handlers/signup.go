@@ -37,7 +37,7 @@ func SignupPOST(db *sql.DB) gin.HandlerFunc {
 			if err != nil {
 				panic(err)
 			}
-			
+
 			c.JSON(http.StatusOK, gin.H{})
 		}
 	}

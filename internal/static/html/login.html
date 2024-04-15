@@ -1,65 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Вход</title>
-    <link rel="stylesheet" href="/static/css/styles.css" />
-  </head>
 
-  <body>
-    <section class="regi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Вход</title>
+  <link rel="stylesheet" href="/static/css/styles.css" />
+</head>
+
+<body>
+  <section class="regi">
+    <br />
+    <div class="topnav">
+      <img src="/static/img/Vector.png" class="logo" alt="" />
+      <a href="/profile" class="active">Профиль</a>
+      <a href="/login">Войти</a>
+      <a href="/olymp">Перечень олимпиад</a>
+      <a href="/">Главная</a>
+    </div>
+
+    <div class="container">
+      <img class="circles" src="/static/img/bluredcircels.png" alt="" />
+
+      <h1>Вход</h1>
+      <input type="text" id="login" placeholder="Имя пользователя" />
+      <input type="password" id="password" placeholder="Пароль" />
       <br />
-      <div class="topnav">
-        <img src="/static/img/Vector.png" class="logo" alt="" />
-        <a href="/profile" class="active">Профиль</a>
-        <a href="/login">Войти</a>
-        <a href="/olymp">Перечень олимпиад</a>
-        <a href="/">Главная</a>
-      </div>
+      <br />
+      <button onclick="register()">Войти</button>
+    </div>
+  </section>
+  <script src="/static/js/script.js"></script>
+  <script>
+    function register() {
+      const login = document.getElementById("login").value;
+      const password = document.getElementById("password").value;
 
-      <div class="container">
-        <img class="circles" src="/static/img/bluredcircels.png" alt="" />
-
-        <h1>Вход</h1>
-        <input type="text" id="login" placeholder="Имя пользователя" />
-        <input type="password" id="password" placeholder="Пароль" />
-        <br />
-        <br />
-        <button onclick="register()">Войти</button>
-      </div>
-    </section>
-    <script src="/static/js/script.js"></script>
-    <script>
-      function register() {
-        const login = document.getElementById("login").value;
-        const password = document.getElementById("password").value;
-
-        fetch("/login", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ login, password }),
+      fetch("/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ login, password }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
         })
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error("Network response was not ok");
-            }
-            return response.json();
-          })
-          .then((data) => {
-            console.log(data);
+        .then((data) => {
+          console.log(data);
 
-            document.cookie = `login=${login}; path=/`;
+          document.cookie = `login=${login}; path=/`;
 
-            window.location.href = "http://localhost:8080/profile";
-          })
-          .catch((error) => {
-            // Handle errors
-            console.error("There was a problem with the registration:", error);
-          });
-      }
-    </script>
-  </body>
+          window.location.href = "http://localhost:8080/profile";
+        })
+        .catch((error) => {
+          // Handle errors
+          console.error("There was a problem with the registration:", error);
+        });
+    }
+  </script>
+</body>
+
 </html>

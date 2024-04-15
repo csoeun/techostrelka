@@ -1,73 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Профиль</title>
-    <link rel="stylesheet" href="/static/css/styles.css" />
-  </head>
 
-  <body>
-    <br />
-    <div class="topnav">
-      <img src="/static/img/Vector.png" class="logo" alt="" />
-      <a href="/profile" class="active">Профиль</a>
-      <a href="/login">Войти</a>
-      <a href="/olymp">Перечень олимпиад</a>
-      <a href="/">Главная</a>
-    </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Профиль</title>
+  <link rel="stylesheet" href="/static/css/styles.css" />
+</head>
 
-    <div class="container">
-      <input type="text" id="id" placeholder="id" style="width: 600px" />
-      <input
-        type="text"
-        id="name"
-        placeholder="названия"
-        style="width: 600px"
-      />
-      <input
-        type="text"
-        id="description"
-        placeholder="Описания"
-        style="width: 600px"
-      />
-      <input
-        type="text"
-        id="link"
-        placeholder="Ссылка на контест"
-        style="width: 600px"
-      />
+<body>
+  <br />
+  <div class="topnav">
+    <img src="/static/img/Vector.png" class="logo" alt="" />
+    <a href="/profile" class="active">Профиль</a>
+    <a href="/login">Войти</a>
+    <a href="/olymp">Перечень олимпиад</a>
+    <a href="/">Главная</a>
+  </div>
 
-      <br /><br />
-      <button>Выложить</button>
-    </div>
-  </body>
-  <script>
-    function register() {
-      const id = document.getElementById("id").value;
-      const name = document.getElementById("name").value;
-      const description = document.getElementById("description").value;
-      const link = document.getElementById("link").value;
+  <div class="container">
+    <input type="text" id="id" placeholder="id" style="width: 600px" />
+    <input type="text" id="title" placeholder="названия" style="width: 600px" />
+    <input type="text" id="description" placeholder="Описания" style="width: 600px" />
+    <input type="text" id="link" placeholder="Ссылка на контест" style="width: 600px" />
 
-      fetch("/admin", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id, name, description, link }),
+    <br /><br />
+    <button onclick="admin()">Выложить</button>
+  </div>
+</body>
+<script>
+  function admin() {
+    const id = document.getElementById("id").value;
+    const title = document.getElementById("title").value;
+    const description = document.getElementById("description").value;
+    const link = document.getElementById("link").value;
+
+    fetch("/admin", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id, title, description, link }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
       })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Network response was not ok");
-          }
-          return response.json();
-        })
-        .then((data) => {
-          console.log(data);
-        })
-        .catch((error) => {
-          console.error("There was a problem with the registration:", error);
-        });
-    }
-  </script>
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error("There was a problem with the registration:", error);
+      });
+  }
+</script>
+
 </html>
