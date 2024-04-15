@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"database/sql"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -13,17 +14,39 @@ func Signup(c *gin.Context) {
 	c.HTML(http.StatusOK, "signup.html", gin.H{})
 }
 
-func SignupPOST(c *gin.Context) {
-	bts, err := io.ReadAll(c.Request.Body)
+func SignupPOST(db *sql.DB) gin.HandlerFunc {
+	return func(c *gin.Context) {
 
-	if err != nil {
-		panic(err)
+		bts, err := io.ReadAll(c.Request.Body)
+
+		if err != nil {
+			panic(err)
+		}
+
+		res := map[string]string{}
+		json.Unmarshal(bts, &res)
+
+		fmt.Println(res)
+
+		if userExists(db, res["login"]) {
+			fmt.Println("there's such user")
+			c.JSON(http.StatusTeapot, gin.H{})
+		} else {
+			fmt.Println("no such user")
+			c.JSON(http.StatusOK, gin.H{})
+		}
 	}
+}
 
-	res := map[string]any{}
-	json.Unmarshal(bts, &res)
+func userExists(db * sql.DB, login string) bool {
+    sqlStmt := `SELECT login FROM users WHERE login = ?`
+    err := db.QueryRow(sqlStmt, login).Scan(&login)
+    if err != nil {
+        if err != sql.ErrNoRows {
+            panic(err)
+        }
 
-	fmt.Println(res)
-
-	c.JSON(http.StatusOK, gin.H{})
+        return false
+    }
+    return true
 }
