@@ -39,16 +39,20 @@
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, username, password }),
+        body: JSON.stringify({ username, password }),
       })
         .then((response) => {
           if (!response.ok) {
             throw new Error("Network response was not ok");
           }
           return response.json();
+
         })
         .then((data) => {
           console.log(data);
+
+          window.location.href = "http://localhost:8080/profile";
+
         })
         .catch((error) => {
           // Handle errors
