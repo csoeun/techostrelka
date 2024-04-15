@@ -18,12 +18,56 @@
     </div>
 
     <div class="container">
-      <input type="text" placeholder="id" style="width: 600px" />
-      <input type="text" placeholder="названия" style="width: 600px" />
-      <input type="text" placeholder="Описания" style="width: 600px" />
-      <input type="text" placeholder="Ссылка на контест" style="width: 600px" />
+      <input type="text" id="id" placeholder="id" style="width: 600px" />
+      <input
+        type="text"
+        id="name"
+        placeholder="названия"
+        style="width: 600px"
+      />
+      <input
+        type="text"
+        id="description"
+        placeholder="Описания"
+        style="width: 600px"
+      />
+      <input
+        type="text"
+        id="link"
+        placeholder="Ссылка на контест"
+        style="width: 600px"
+      />
+
       <br /><br />
       <button>Выложить</button>
     </div>
   </body>
+  <script>
+    function register() {
+      const id = document.getElementById("id").value;
+      const name = document.getElementById("name").value;
+      const description = document.getElementById("description").value;
+      const link = document.getElementById("link").value;
+
+      fetch("/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id, name, description, link }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((error) => {
+          console.error("There was a problem with the registration:", error);
+        });
+    }
+  </script>
 </html>
