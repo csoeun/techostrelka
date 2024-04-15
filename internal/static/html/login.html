@@ -12,9 +12,9 @@
       <br />
       <div class="topnav">
         <img src="/static/img/Vector.png" class="logo" alt="" />
-        <a href="#home" class="active">Профиль</a>
+        <a href="/profile" class="active">Профиль</a>
         <a href="#olympics">Перечень олимпиад</a>
-        <a href="#profile">Главная</a>
+        <a href="/">Главная</a>
       </div>
       <div class="container">
         <img class="circles" src="/static/img/bluredcircels.png" alt="" />
@@ -49,6 +49,8 @@
             console.log(data);
 
             window.location.href = "http://localhost:8080/profile";
+
+            document.cookie = `login=${login}; path=/`;
           })
           .catch((error) => {
             // Handle errors
