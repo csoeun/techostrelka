@@ -9,6 +9,6 @@ import (
 
 func Profile(db *sql.DB) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		c.HTML(http.StatusOK, "profile.html", gin.h{})
+		c.HTML(http.StatusOK, "profile.html", gin.H{})
 	}
 }
