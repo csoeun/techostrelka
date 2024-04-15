@@ -54,3 +54,36 @@ func RemoveContest(db *sql.DB) gin.HandlerFunc {
 		c.JSON(http.StatusOK, gin.H{})
 	}
 }
+
+func Contests(db *sql.DB) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		rows, err := db.Query("select * from contests")
+		if err != nil {
+			panic(err)
+		}
+
+		arr := []any{}
+
+		for rows.Next() {
+			contest := struct {
+				id          int
+				title       string
+				description string
+				link        string
+			}{}
+			err := rows.Scan(&contest.id, &contest.title, &contest.description, &contest.link)
+			if err != nil {
+				fmt.Println(err)
+				continue
+			}
+			arr = append(arr, map[string]any{
+				"id": contest.id,
+				"title": contest.id,
+				"description": contest.description,
+				"link": contest.link,
+			})
+		}
+
+		c.JSON(http.StatusOK, arr)
+	}
+}
