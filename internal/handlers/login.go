@@ -9,3 +9,7 @@ import (
 func Login(c *gin.Context) {
 	c.HTML(http.StatusOK, "login.html", gin.H{})
 }
+
+func LoginPOST(c *gin.Context) {
+	
+}

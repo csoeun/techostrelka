@@ -16,5 +16,8 @@ func main() {
 	r.GET("/login", handlers.Login)
 	r.GET("/signup", handlers.Signup)
 
+	r.POST("/login", handlers.LoginPOST)
+	r.POST("/signup", handlers.SignupPOST)
+
 	r.Run(":8080")
 }

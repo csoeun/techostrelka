@@ -1,11 +1,11 @@
-body{
+body {
     background-color: #070508;
     color: white;
 }
 
-section{
+section {
     display: flex;
     flex-direction: column;
     width: 300px;
-    
+
 }
