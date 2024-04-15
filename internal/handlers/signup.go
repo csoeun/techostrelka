@@ -30,6 +30,13 @@ func SignupPOST(db *sql.DB) gin.HandlerFunc {
 
 		if userExists(db, res["login"]) {
 			fmt.Println("there's such user")
+
+			_, err := db.Exec("insert into users (login, password) values ($1, $2)",
+				res["login"], res["password"])
+			if err != nil {
+				panic(err)
+			}
+
 			c.JSON(http.StatusTeapot, gin.H{})
 		} else {
 			fmt.Println("no such user")
@@ -38,15 +45,15 @@ func SignupPOST(db *sql.DB) gin.HandlerFunc {
 	}
 }
 
-func userExists(db * sql.DB, login string) bool {
-    sqlStmt := `SELECT login FROM users WHERE login = ?`
-    err := db.QueryRow(sqlStmt, login).Scan(&login)
-    if err != nil {
-        if err != sql.ErrNoRows {
-            panic(err)
-        }
+func userExists(db *sql.DB, login string) bool {
+	sqlStmt := `SELECT login FROM users WHERE login = ?`
+	err := db.QueryRow(sqlStmt, login).Scan(&login)
+	if err != nil {
+		if err != sql.ErrNoRows {
+			panic(err)
+		}
 
-        return false
-    }
-    return true
+		return false
+	}
+	return true
 }
