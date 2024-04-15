@@ -18,7 +18,7 @@ func main() {
 	sts := `DROP TABLE IF EXISTS users;
 		DROP TABLE IF EXISTS contests;
 		CREATE TABLE users (login TEXT PRIMARY KEY, password TEXT);
-		CREATE TABLE contests (id INT PRIMARY KEY, title TEXT, description TEXT, link TEXT);
+		CREATE TABLE contests (id INT PRIMARY KEY, title TEXT, description TEXT, link TEXT, img TEXT);
 		INSERT INTO USERS (login, password) VALUES ("admin", "root")`
 	_, err = db.Exec(sts)
 

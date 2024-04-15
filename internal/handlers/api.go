@@ -70,17 +70,19 @@ func Contests(db *sql.DB) gin.HandlerFunc {
 				title       string
 				description string
 				link        string
+				img         string
 			}{}
-			err := rows.Scan(&contest.id, &contest.title, &contest.description, &contest.link)
+			err := rows.Scan(&contest.id, &contest.title, &contest.description, &contest.link, &contest.img)
 			if err != nil {
 				fmt.Println(err)
 				continue
 			}
 			arr = append(arr, map[string]any{
-				"id": contest.id,
-				"title": contest.title,
+				"id":          contest.id,
+				"title":       contest.title,
 				"description": contest.description,
-				"link": contest.link,
+				"link":        contest.link,
+				"img":         contest.img,
 			})
 		}
 
