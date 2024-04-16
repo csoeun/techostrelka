@@ -147,3 +147,31 @@ func EditUserAccounts(db *sql.DB) gin.HandlerFunc {
 		c.JSON(http.StatusOK, gin.H{})
 	}
 }
+
+func Register(db *sql.DB) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		bts, err := io.ReadAll(c.Request.Body)
+		if err != nil {
+			panic(err)
+		}
+
+		jsn := map[string]string{}
+		json.Unmarshal(bts, &jsn)
+
+		fmt.Println(jsn)
+
+		row := db.QueryRow("select mates from users where login = $1", jsn["login"])
+		mate := 0
+		err = row.Scan(&mate)
+		if err != nil {
+			panic(err)
+		}
+
+		_, err = db.Exec("UPDATE users SET mate = $1 where login = $2", jsn["mate"], jsn["login"])
+		if err != nil {
+			panic(err)
+		}
+
+		c.JSON(http.StatusOK, gin.H{})
+	}
+}

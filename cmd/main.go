@@ -15,16 +15,17 @@ func main() {
 	}
 	defer db.Close()
 
-	sts := `DROP TABLE IF EXISTS users;
-		DROP TABLE IF EXISTS contests;
-		CREATE TABLE users (login TEXT PRIMARY KEY, password TEXT, codeforces TEXT DEFAULT "none" NOT NULL, acmp TEXT DEFAULT "none" NOT NULL, yandex TEXT DEFAULT "none" NOT NULL, mates);
-		CREATE TABLE contests (id INT PRIMARY KEY, title TEXT, description TEXT, link TEXT, img TEXT);
-		INSERT INTO USERS (login, password) VALUES ("admin", "root")`
-	_, err = db.Exec(sts)
+	// DROP TABLE IF EXISTS users;
+	// DROP TABLE IF EXISTS contests;
+	// sts := `
+	// 	CREATE TABLE users (login TEXT PRIMARY KEY, password TEXT, codeforces TEXT DEFAULT "none" NOT NULL, acmp TEXT DEFAULT "none" NOT NULL, yandex TEXT DEFAULT "none" NOT NULL, mates INTEGER);
+	// 	CREATE TABLE contests (id INT PRIMARY KEY, title TEXT, description TEXT, link TEXT, img TEXT);
+	// 	INSERT INTO USERS (login, password) VALUES ("admin", "root")`
+	// _, err = db.Exec(sts)
 
-	if err != nil {
-		panic(err)
-	}
+	// if err != nil {
+	// 	panic(err)
+	// }
 
 	r := gin.Default()
 
@@ -50,6 +51,8 @@ func main() {
 
 	r.GET("/api/user", handlers.UserInfo(db))
 	r.POST("/api/user/edit", handlers.EditUserAccounts(db))
+
+	r.POST("/api/register", handlers.Register(db))
 
 	r.Run(":8080")
 }
