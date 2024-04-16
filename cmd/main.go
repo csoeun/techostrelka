@@ -46,6 +46,7 @@ func main() {
 	r.POST("/admin", handlers.AddContest(db))
 
 	r.GET("/api/contest", handlers.Contests(db))
+	r.POST("/api/contest/remove", handlers.RemoveContest(db))
 
 	r.Run(":8080")
 }

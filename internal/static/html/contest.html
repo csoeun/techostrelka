@@ -53,10 +53,12 @@
                 const olympList = document.querySelector(".olymp-list");
                 data.forEach((olymp) => {
                     const olympItem = document.createElement("div");
+                    olympItem.id = olymp.id;
                     olympItem.classList.add("olymp-item");
                     olympItem.innerHTML = `
-            <img src="${olymp.img}" alt="${olymp.title}">
-            <p>${olymp.title}</p>
+            <img src="${olymp.img}">
+            <b><h1>${olymp.title}</h1></b>
+            <p>${olymp.description}</p>
 
             <button><a href="${olymp.link}">Зайти</a></button>
           `;

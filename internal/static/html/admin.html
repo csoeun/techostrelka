@@ -19,17 +19,29 @@
   </div>
 
   <div class="container">
-    <input type="text" id="title" placeholder="названия" style="width: 600px" />
-    <input type="text" id="description" placeholder="Описания" style="width: 600px" />
+    <h1>Добавление олимпиады</h1>
+    <input type="text" id="title" placeholder="Название" style="width: 600px" />
+    <input type="text" id="description" placeholder="Описание" style="width: 600px" />
     <input type="text" id="link" placeholder="Ссылка на контест" style="width: 600px" />
     <input type="text" id="img" placeholder="Ссылка на картинку" style="width: 600px" />
 
     <br /><br />
-    <button onclick="admin()">Выложить</button>
+    <button onclick="add()">Выложить</button>
   </div>
+  <hr>
+
+  <div class="container">
+    <h1>Удаление олимпиады</h1>
+    <select name="contests" id="contests">
+    </select>
+
+    <br /><br />
+    <button onclick="deleteContest()">Удалить</button>
+  </div>
+  <hr>
 </body>
 <script>
-  function admin() {
+  function add() {
     const img = document.getElementById("img").value;
     const title = document.getElementById("title").value;
     const description = document.getElementById("description").value;
@@ -55,6 +67,44 @@
         console.error("There was a problem with the registration:", error);
       });
   }
+
+  function deleteContest() {
+    let id = document.getElementById("contests").value.slice(0, document.getElementById("contests").value.indexOf(" "));
+    fetch("/api/contest/remove", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error("There was a problem with the registration:", error);
+      });
+  }
+</script>
+
+<script>
+  fetch("/api/contest")
+    .then((response) => response.json())
+    .then((data) => {
+      const olympList = document.getElementById("contests");
+      data.forEach((olymp) => {
+        const olympItem = document.createElement("option");
+        olympItem.id = olymp.id;
+        olympItem.innerText = `${olymp.id} - ${olymp.title}`;
+        olympList.appendChild(olympItem);
+      });
+    })
+    .catch((error) => console.error("Ошибка загрузки данных:", error));
 </script>
 
 </html>
