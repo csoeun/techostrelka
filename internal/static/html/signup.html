@@ -96,6 +96,24 @@
       color: #10417f;
       transition: 0.5s;
     }
+
+    h1,
+    .containerr,
+    h3 {
+      opacity: 0;
+      animation: fadeIn 0.5s ease forwards;
+      animation-delay: 1s;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
   </style>
 </head>
 

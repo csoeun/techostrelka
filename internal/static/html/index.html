@@ -2475,25 +2475,6 @@ position: static;
                     }
                 }
             </style>
-            <div class='t396'>
-                <div class="t396__artboard" data-artboard-recid="620924286" data-artboard-screens="375,414,1200"
-                    data-artboard-height="116" data-artboard-valign="center" data-artboard-upscale="grid"
-                    data-artboard-height-res-375="96" data-artboard-height-res-414="116">
-                    <div class="t396__carrier" data-artboard-recid="620924286"></div>
-                    <div class="t396__filter" data-artboard-recid="620924286"></div>
-                    <div class='t396__elem tn-elem tn-elem__6209242861668762215293 t-animate'
-                        data-elem-id='1668762215293' data-elem-type='text' data-field-top-value="20"
-                        data-field-left-value="20" data-field-width-value="1059" data-field-axisy-value="top"
-                        data-field-axisx-value="left" data-field-container-value="grid" data-field-topunits-value="px"
-                        data-field-leftunits-value="px" data-field-heightunits-value="" data-field-widthunits-value="px"
-                        data-animate-style="fadein" data-animate-duration="1" data-animate-mobile="y"
-                        data-field-top-res-375-value="21" data-field-left-res-375-value="10"
-                        data-field-top-res-414-value="25" data-field-left-res-414-value="12"
-                        data-field-width-res-414-value="364">
-                        <div class='tn-atom' field='tn_text_1668762215293'>Новые олимпиады</div>
-                    </div>
-                </div>
-            </div>
             <script>t_onReady(function () {
                     t_onFuncLoad('t396_init', function () {
                         t396_init('620924286');
@@ -3537,28 +3518,3 @@ position: static;
                     t396_init('620924290');
                 });
             });</script>
-<<<<<<< HEAD
-=======
-
-
-        <script>
-            fetch("/api/contest")
-                .then((response) => response.json())
-                .then((data) => {
-                    const olympList = document.querySelector(".olymp-list");
-                    data.forEach((olymp) => {
-                        const olympItem = document.createElement("div");
-                        olympItem.classList.add("olymp-item");
-                        olympItem.innerHTML = `
-            <img src="${olymp.img}" alt="${olymp.title}">
-            <p>${olymp.title}</p>
-
-            <button><a href="${olymp.link}">Зайти</a></button>
-          `;
-                        olympList.appendChild(olympItem);
-                    });
-                })
-                .catch((error) => console.error("Ошибка загрузки данных:", error));
-        </script>
->>>>>>> 44a2fbea659f570ba9581b0563d929a622fbf3b1
-    </div>
