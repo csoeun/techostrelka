@@ -29,7 +29,7 @@
 
         a {
             text-decoration: none;
-            color: black;
+            color: rgb(255, 255, 255);
         }
 
         body {
@@ -162,7 +162,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-">
+    ">
         <div id="sidebar" class="sidebar">
             <h2>Текущие конкурсы:</h2>
             <ul id="contestList"></ul>
@@ -193,10 +193,14 @@
             ul.innerHTML = '';
             contestList.forEach((contest) => {
                 const li = document.createElement("li");
-                li.textContent = contest;
+                const link = document.createElement("a");
+                link.textContent = contest;
+                link.href = `http://127.0.0.1:5500/internal/static/html/template.html`;
+                li.appendChild(link);
                 ul.appendChild(li);
             });
         }
+
 
         function getCookie(name) {
             const value = `; ${document.cookie}`;
@@ -217,7 +221,7 @@
                             <img src="${olymp.img}">
                             <b><h1>${olymp.title}</h1></b>
                             <p>${olymp.description}</p>
-                            <button><a href="${olymp.link}">Зайти</a></button>
+                            <button><a href="${olymp.link}" style="color: black">Зайти</a></button>
                             <button onclick="register('${olymp.title}')">Зарегистрироваться</button>
                         `;
                         olympList.appendChild(olympItem);
