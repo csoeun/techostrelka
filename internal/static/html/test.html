@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/styles.css">
     <style>
         body {
             margin: 0;
@@ -16,12 +17,9 @@
 
         .container {
             max-width: 1200px;
-            /* Максимальная ширина контейнера меню */
             width: 100%;
             margin: 0 auto;
-            /* Центрирование */
             padding: 0 20px;
-            /* Отступы слева и справа */
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -29,7 +27,6 @@
 
         .logo img {
             max-width: 100px;
-            /* Максимальная ширина логотипа */
         }
 
         nav ul {
@@ -50,7 +47,6 @@
         nav ul li a {
             text-decoration: none;
             color: #333;
-            /* Цвет ссылок */
             padding: 8px 12px;
             border-radius: 5px;
             transition: background-color 0.3s ease;
@@ -58,14 +54,13 @@
 
         nav ul li a:hover {
             background-color: #e9ecef;
-            /* Цвет фона при наведении */
         }
     </style>
 </head>
 
 <body>
     <header>
-        <div class="container">
+        <div class="containerr">
             <div class="logo">
                 <img src="/static/Vector.png" alt="Логотип">
             </div>
@@ -79,6 +74,55 @@
             </nav>
         </div>
     </header>
+
+    <div class="container">
+        <img class="circles" src="/static/img/bluredcircels.png" alt="">
+
+        <h1>Регистрация</h1>
+        <input type="text" id="login" placeholder="Имя пользователя" />
+        <input type="password" id="password" placeholder="Пароль" />
+        <br>
+        <br>
+        <button style="margin-top: 10px;" onclick="register()">Зарегистрироваться</button>
+
+        <br><br>
+
+        <p>Есть профиль? <a href="/login" style="color: white;">Войдите</a>!</p>
+    </div>
+    </section>
+    <script src="/static/js/script.js"></script>
+    <script>
+        function register() {
+            const login = document.getElementById("login").value;
+            const password = document.getElementById("password").value;
+
+            fetch("/signup", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ login, password }),
+            })
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+                    return response.json();
+
+                })
+                .then((data) => {
+                    console.log(data);
+
+                    document.cookie = `login=${login}; path=/`;
+
+                    window.location.href = "http://localhost:8080/profile";
+
+                })
+                .catch((error) => {
+                    console.error("There was a problem with the registration:", error);
+                });
+        }
+    </script>
 </body>
 
 </html>
