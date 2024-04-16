@@ -25,7 +25,7 @@
     <input type="text" placeholder="ACMP" id="acmp">
     <input type="text" placeholder="Яндекс.Контест" id="yandex">
 
-    <button>Привязать</button>
+    <button onclick="updateProfile()">Привязать</button>
 
     <h1>Статистика</h1>
   </div>
@@ -37,22 +37,18 @@
       if (parts.length === 2) return parts.pop().split(";").shift();
     }
 
-    const username = getCookie("login");
-    if (username) {
-      document.getElementById("usernamePlaceholder").innerText = username;
-    }
-
-    function profiles() {
+    function updateProfile() {
       const codeforces = document.getElementById("codeforces").value;
       const acmp = document.getElementById("acmp").value;
       const yandex = document.getElementById("yandex").value;
+      const login = getCookie("login");
 
-      fetch("/login", {
+      fetch("/api/user/edit", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ codeforces, acmp, yandex }),
+        body: JSON.stringify({ codeforces, acmp, yandex, login }),
       })
         .then((response) => {
           if (!response.ok) {
@@ -64,8 +60,36 @@
           console.log(data);
         })
         .catch((error) => {
-          // Handle errors
-          console.error("There was a problem with the registration:", error);
+          console.error("There was a problem updating the profile:", error);
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const login = getCookie("login");
+      if (login) {
+        document.getElementById("usernamePlaceholder").innerText = login;
+      }
+
+      // Вызываем функцию data при загрузке страницы
+      fetchData();
+    });
+
+    function fetchData() {
+      fetch("/api/user/")
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          document.getElementById("codeforces").value = data.codeforces || "";
+          document.getElementById("acmp").value = data.acmp || "";
+          document.getElementById("yandex").value = data.yandex || "";
+        })
+        .catch((error) => {
+          console.error("There was a problem fetching user data:", error);
+          alert("Failed to fetch user data. Please try again later.");
         });
     }
 
