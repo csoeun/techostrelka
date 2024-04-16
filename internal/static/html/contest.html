@@ -99,6 +99,8 @@
 
         nav ul li {
             margin-left: 20px;
+            text-decoration: none;
+
         }
 
         nav ul li:first-child {
@@ -120,6 +122,12 @@
         nav ul li a:hover {
             color: #10417f;
             transition: 0.5s;
+        }
+
+        .sidebar {
+            background-color: #011127;
+            width: 300px;
+            border-radius: 5px;
         }
     </style>
 </head>
@@ -149,9 +157,16 @@
 
     </div>
 
-    <div id="sidebar">
-        <h2>Текущие конкурсы:</h2>
-        <ul id="contestList"></ul>
+    <div style="            
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+">
+        <div id="sidebar" class="sidebar">
+            <h2>Текущие конкурсы:</h2>
+            <ul id="contestList"></ul>
+        </div>
     </div>
     <script>
         function register(title) {
