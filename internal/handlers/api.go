@@ -119,10 +119,10 @@ func UserInfo(db *sql.DB) gin.HandlerFunc {
 		}
 
 		c.JSON(http.StatusOK, gin.H{
-			"login": user.login,
+			"login":      user.login,
 			"codeforces": user.codeforces,
-			"acmp": user.acmp,
-			"yandex": user.yandex,
+			"acmp":       user.acmp,
+			"yandex":     user.yandex,
 		})
 	}
 }
@@ -160,6 +160,8 @@ func Register(db *sql.DB) gin.HandlerFunc {
 
 		fmt.Println(jsn)
 
+		fmt.Println(jsn["login"])
+
 		row := db.QueryRow("select mates from users where login = $1", jsn["login"])
 		mate := 0
 		err = row.Scan(&mate)
@@ -167,7 +169,7 @@ func Register(db *sql.DB) gin.HandlerFunc {
 			panic(err)
 		}
 
-		_, err = db.Exec("UPDATE users SET mate = $1 where login = $2", jsn["mate"], jsn["login"])
+		_, err = db.Exec("UPDATE users SET mates = $1 where login = $2", jsn["mate"], jsn["login"])
 		if err != nil {
 			panic(err)
 		}
