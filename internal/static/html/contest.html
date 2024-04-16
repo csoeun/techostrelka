@@ -88,7 +88,6 @@
 
         .logo img {
             width: 100%;
-            ;
         }
 
         nav ul {
@@ -150,39 +149,38 @@
 
     </div>
 
+    <div id="sidebar">
+        <h2>Текущие конкурсы:</h2>
+        <ul id="contestList"></ul>
+    </div>
     <script>
-        function register() {
-
-            function getCookie(name) {
-                const value = `; ${document.cookie}`;
-                const parts = value.split(`; ${name}=`);
-                if (parts.length === 2) return parts.pop().split(";").shift();
+        function register(title) {
+            const contestList = getContestList();
+            if (!contestList.includes(title)) {
+                contestList.push(title);
+                document.cookie = `contestList=${JSON.stringify(contestList)}; path=/`;
+                alert("Вы успешно зарегистрировались на конкурс: " + title);
+                updateSidebar();
+            } else {
+                alert("Вы уже зарегистрированы на этот конкурс.");
             }
-            var login = getCookie("login");
+        }
 
-            console.log(typeof (login))
+        function getContestList() {
+            const contestListCookie = getCookie('contestList');
+            return contestListCookie ? JSON.parse(contestListCookie) : [];
+        }
 
-            fetch("/api/register", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ login }),
-            })
-                .then((response) => {
-                    if (!response.ok) {
-                        throw new Error("Network response was not ok");
-                    }
-                    return response.json();
-                })
-                .then((data) => {
-                    console.log(data);
-                    alert("Регистрация успешно завершена!");
-                })
-                .catch((error) => {
-                    console.error("Ошибка при регистрации:", error);
-                    alert("Произошла ошибка при регистрации.");
-                });
+        function updateSidebar() {
+            const sidebar = document.getElementById("sidebar");
+            const contestList = getContestList();
+            const ul = document.getElementById("contestList");
+            ul.innerHTML = '';
+            contestList.forEach((contest) => {
+                const li = document.createElement("li");
+                li.textContent = contest;
+                ul.appendChild(li);
+            });
         }
 
         function getCookie(name) {
@@ -205,10 +203,11 @@
                             <b><h1>${olymp.title}</h1></b>
                             <p>${olymp.description}</p>
                             <button><a href="${olymp.link}">Зайти</a></button>
-                            <button onclick="register()">Зарегистрироваться</button>
+                            <button onclick="register('${olymp.title}')">Зарегистрироваться</button>
                         `;
                         olympList.appendChild(olympItem);
                     });
+                    updateSidebar();
                 })
                 .catch((error) => console.error("Ошибка загрузки данных:", error));
         });    </script>
