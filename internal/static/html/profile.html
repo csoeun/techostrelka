@@ -25,7 +25,7 @@
     <input type="text" placeholder="ACMP" id="acmp">
     <input type="text" placeholder="Яндекс.Контест" id="yandex">
 
-    <button>Привязать</button>
+    <button onclick="profiles()">Привязать</button>
 
     <h1>Статистика</h1>
   </div>
@@ -37,9 +37,9 @@
       if (parts.length === 2) return parts.pop().split(";").shift();
     }
 
-    const username = getCookie("login");
-    if (username) {
-      document.getElementById("usernamePlaceholder").innerText = username;
+    const login = getCookie("login");
+    if (login) {
+      document.getElementById("usernamePlaceholder").innerText = login;
     }
 
     function profiles() {
@@ -47,12 +47,12 @@
       const acmp = document.getElementById("acmp").value;
       const yandex = document.getElementById("yandex").value;
 
-      fetch("/login", {
+      fetch("/api/user/edit", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ codeforces, acmp, yandex }),
+        body: JSON.stringify({ codeforces, acmp, yandex, login }),
       })
         .then((response) => {
           if (!response.ok) {

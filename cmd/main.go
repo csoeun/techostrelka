@@ -48,7 +48,7 @@ func main() {
 	r.GET("/api/contest", handlers.Contests(db))
 	r.POST("/api/contest/remove", handlers.RemoveContest(db))
 
-	r.POST("/api/user", handlers.UserInfo(db))
+	r.GET("/api/user", handlers.UserInfo(db))
 	r.POST("/api/user/edit", handlers.EditUserAccounts(db))
 
 	r.Run(":8080")
