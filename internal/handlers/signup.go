@@ -33,7 +33,7 @@ func SignupPOST(db *sql.DB) gin.HandlerFunc {
 		} else {
 			fmt.Println("no such user")
 
-			_, err := db.Exec("INSERT INTO users (login, password) VALUES ($1, $2)", res["login"], res["password"])
+			_, err := db.Exec("INSERT INTO users (login, password, codeforces, acmp, yandex) VALUES ($1, $2, $3, $4, $5)", res["login"], res["password"], "", "", "")
 			if err != nil {
 				panic(err)
 			}

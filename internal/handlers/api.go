@@ -90,3 +90,60 @@ func Contests(db *sql.DB) gin.HandlerFunc {
 		c.JSON(http.StatusOK, arr)
 	}
 }
+
+func UserInfo(db *sql.DB) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		bts, err := io.ReadAll(c.Request.Body)
+		if err != nil {
+			panic(err)
+		}
+
+		jsn := map[string]string{}
+		json.Unmarshal(bts, &jsn)
+
+		fmt.Println(jsn)
+
+		user := struct {
+			login      string
+			codeforces string
+			acmp       string
+			yandex     string
+		}{
+			login: jsn["login"],
+		}
+
+		row := db.QueryRow("select (codeforces, acmp, yandex) from users where login = $1", jsn["login"])
+		err = row.Scan(&user.codeforces, &user.acmp, &user.yandex)
+		if err != nil {
+			panic(err)
+		}
+
+		c.JSON(http.StatusOK, gin.H{
+			"login": user.login,
+			"codeforces": user.codeforces,
+			"acmp": user.acmp,
+			"yandex": user.yandex,
+		})
+	}
+}
+
+func EditUserAccounts(db *sql.DB) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		bts, err := io.ReadAll(c.Request.Body)
+		if err != nil {
+			panic(err)
+		}
+
+		jsn := map[string]string{}
+		json.Unmarshal(bts, &jsn)
+
+		fmt.Println(jsn)
+
+		_, err = db.Exec("UPDATE users SET codeforces = $1, acmp = $2, yandex = $3 where login = $4", jsn["codeforces"], jsn["acmp"], jsn["yandex"], jsn["login"])
+		if err != nil {
+			panic(err)
+		}
+
+		c.JSON(http.StatusOK, gin.H{})
+	}
+}
