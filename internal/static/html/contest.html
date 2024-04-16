@@ -160,16 +160,18 @@
                     olympItem.id = olymp.id;
                     olympItem.classList.add("olymp-item");
                     olympItem.innerHTML = `
-            <img src="${olymp.img}">
-            <b><h1>${olymp.title}</h1></b>
-            <p>${olymp.description}</p>
-
-            <button><a href="${olymp.link}">Зайти</a></button>
-          `;
+                        <img src="${olymp.img}">
+                        <b><h1>${olymp.title}</h1></b>
+                        <p>${olymp.description}</p><a href="${olymp.link}"><button class="${olymp.id}" onclick="registerUser()">Зайти</button></a>   
+                    `;
                     olympList.appendChild(olympItem);
                 });
             })
             .catch((error) => console.error("Ошибка загрузки данных:", error));
+
+            function registerUser() {
+                
+            }
     </script>
 </body>
 
