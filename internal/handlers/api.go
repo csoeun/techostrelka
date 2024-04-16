@@ -112,17 +112,18 @@ func UserInfo(db *sql.DB) gin.HandlerFunc {
 			login: jsn["login"],
 		}
 
-		row := db.QueryRow("select (codeforces, acmp, yandex) from users where login = $1", jsn["login"])
+		row := db.QueryRow("select codeforces, acmp, yandex from users where login = $1", jsn["login"])
 		err = row.Scan(&user.codeforces, &user.acmp, &user.yandex)
 		if err != nil {
+			c.JSON(http.StatusTeapot, gin.H{})
 			panic(err)
 		}
 
 		c.JSON(http.StatusOK, gin.H{
-			"login": user.login,
+			"login":      user.login,
 			"codeforces": user.codeforces,
-			"acmp": user.acmp,
-			"yandex": user.yandex,
+			"acmp":       user.acmp,
+			"yandex":     user.yandex,
 		})
 	}
 }
