@@ -2490,7 +2490,6 @@ position: static;
                         data-field-top-res-375-value="21" data-field-left-res-375-value="10"
                         data-field-top-res-414-value="25" data-field-left-res-414-value="12"
                         data-field-width-res-414-value="364">
-                        <div class='tn-atom' field='tn_text_1668762215293'>Новые олимпиады</div>
                     </div>
                 </div>
             </div>
@@ -3579,7 +3578,11 @@ position: static;
                 .then((response) => response.json())
                 .then((data) => {
                     const olympList = document.querySelector(".olymp-list");
-                    data.forEach((olymp) => {
+                    let o1 = data[data.length - 1];
+                    let o2 = data[data.length - 2];
+                    let o3 = data[data.length - 3];
+                    let arr = [o1, o2, o3]
+                    arr.forEach((olymp) => {
                         const olympItem = document.createElement("div");
                         olympItem.classList.add("olymp-item");
                         olympItem.innerHTML = `
