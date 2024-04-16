@@ -2,40 +2,134 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Регистрация</title>
-  <link rel="stylesheet" href="/static/css/styles.css" />
-  <link rel="shortcut icon" href="https://static.tildacdn.com/tild3161-3662-4532-b466-666566343333/favicon.ico">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/styles.css">
+  <style>
+    body {
+      overflow-x: hidden;
+      background-color: #070508;
+      color: white;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      margin: 0;
+    }
 
+    .circles {
+      position: absolute;
+      z-index: -1;
+    }
+
+    .containerr {
+      height: 80vh;
+      width: 100vw;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    button {
+      border: none;
+      border-radius: 5px;
+      height: 30px;
+      margin-top: 10px;
+      width: 300px;
+    }
+
+    button {
+      width: 150px;
+      background-color: white;
+      color: #D54C3D;
+      cursor: pointer;
+    }
+
+    .logo {
+      width: 200px;
+      margin-left: 10px;
+    }
+
+    .container {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo img {
+      width: 100%;
+      ;
+    }
+
+    nav ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+    }
+
+    nav ul li {
+      margin-left: 20px;
+    }
+
+    nav ul li:first-child {
+      margin-left: 0;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 14px;
+      padding: 8px 12px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+      transition: 0.5s;
+
+    }
+
+    nav ul li a:hover {
+      color: #10417f;
+      transition: 0.5s;
+    }
+  </style>
 </head>
 
 <body>
-  <section class="regi">
-    <br>
-    <div class="topnav">
-      <img src="/static/img/Vector.png" class="logo" alt="" />
-      <a href="/profile" class="active">Профиль</a>
-      <a href="/list">Перечень олимпиад</a>
-      <a href="/">Главная</a>
-    </div>
-
+  <br><br>
+  <header>
     <div class="container">
-      <img class="circles" src="/static/img/bluredcircels.png" alt="">
-
-      <h1>Регистрация</h1>
-      <input type="text" id="login" placeholder="Имя пользователя" />
-      <input type="password" id="password" placeholder="Пароль" />
-      <br>
-      <br>
-      <button style="margin-top: 10px;" onclick="register()">Зарегистрироваться</button>
-
-      <br><br>
-
-      <p>Есть профиль? <a href="/login" style="color: white;">Войдите</a>!</p>
+      <div class="logo">
+        <img src="/static/img/Vector.png" alt="Логотип">
+      </div>
+      <nav>
+        <ul>
+          <li><a href="/">Главная</a></li>
+          <li><a href="/list">Перечень олимпиад</a></li>
+          <li><a href="/profile">Профиль</a></li>
+        </ul>
+      </nav>
     </div>
-  </section>
-  <script src="/static/js/script.js"></script>
+  </header>
+
+  <div class="containerr">
+    <img class="circles" src="/static/img/bluredcircels.png" alt="" />
+
+    <h1>Регистрация</h1>
+    <input type="text" id="login" placeholder="Имя пользователя" />
+    <input type="password" id="password" placeholder="Пароль" />
+    <br><br>
+    <button onclick="register()">Зарегистрироваться</button>
+
+    <br><br>
+
+    <p>Есть профиль? <a href="/login" style="color: white;">Войдите</a>!</p>
+  </div>
+
   <script>
     function register() {
       const login = document.getElementById("login").value;
@@ -53,21 +147,18 @@
             throw new Error("Network response was not ok");
           }
           return response.json();
-
         })
         .then((data) => {
           console.log(data);
-
           document.cookie = `login=${login}; path=/`;
-
           window.location.href = "http://localhost:8080/profile";
-
         })
         .catch((error) => {
           console.error("There was a problem with the registration:", error);
         });
     }
   </script>
+  <script src="/static/js/script.js"></script>
 </body>
 
 </html>

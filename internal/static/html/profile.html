@@ -62,12 +62,25 @@
         })
         .then((data) => {
           console.log(data);
+          document.cookie = `login=${login}; path=/`;
+          document.cookie = `login=${codeforces}; path=/`;
+          document.cookie = `login=${acmp}; path=/`;
+          document.cookie = `login=${yandex}; path=/`;
+
+
+
         })
         .catch((error) => {
-          // Handle errors
-          console.error("There was a problem with the registration:", error);
+          console.error("There was a problem updating the profile:", error);
         });
     }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const login = getCookie("login");
+      if (login) {
+        document.getElementById("usernamePlaceholder").innerText = login;
+      }
+    });
 
   </script>
 </body>
