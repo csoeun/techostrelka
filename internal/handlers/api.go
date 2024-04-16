@@ -93,15 +93,7 @@ func Contests(db *sql.DB) gin.HandlerFunc {
 
 func UserInfo(db *sql.DB) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		bts, err := io.ReadAll(c.Request.Body)
-		if err != nil {
-			panic(err)
-		}
-
-		jsn := map[string]string{}
-		json.Unmarshal(bts, &jsn)
-
-		fmt.Println(jsn)
+		login := c.Params.ByName("login")
 
 		user := struct {
 			login      string
@@ -109,14 +101,15 @@ func UserInfo(db *sql.DB) gin.HandlerFunc {
 			acmp       string
 			yandex     string
 		}{
-			login: jsn["login"],
+			login: login,
 		}
 
-		row := db.QueryRow("select codeforces, acmp, yandex from users where login = $1", jsn["login"])
-		err = row.Scan(&user.codeforces, &user.acmp, &user.yandex)
+		row := db.QueryRow("select codeforces, acmp, yandex from users where login = $1", login)
+		err := row.Scan(&user.codeforces, &user.acmp, &user.yandex)
 		if err != nil {
 			panic(err)
 		}
+		fmt.Println(user)
 
 		c.JSON(http.StatusOK, gin.H{
 			"login":      user.login,

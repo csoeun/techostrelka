@@ -49,7 +49,7 @@ func main() {
 	r.GET("/api/contest", handlers.Contests(db))
 	r.POST("/api/contest/remove", handlers.RemoveContest(db))
 
-	r.GET("/api/user", handlers.UserInfo(db))
+	r.GET("/api/user/:login", handlers.UserInfo(db))
 	r.POST("/api/user/edit", handlers.EditUserAccounts(db))
 
 	r.POST("/api/register", handlers.Register(db))

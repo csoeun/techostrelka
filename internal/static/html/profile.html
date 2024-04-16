@@ -151,18 +151,26 @@
   <div id="container"></div>
 
   <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const login = getCookie("login");
+      if (login) {
+        document.getElementById("usernamePlaceholder").innerText = login;
+      }
+
+      const submitButton = document.getElementById("submitProfileButton");
+      if (submitButton) {
+        submitButton.addEventListener("click", profiles);
+      }
+    });
+
     function getCookie(name) {
       const value = `; ${document.cookie}`;
       const parts = value.split(`; ${name}=`);
       if (parts.length === 2) return parts.pop().split(";").shift();
     }
 
-    const login = getCookie("login");
-    if (login) {
-      document.getElementById("usernamePlaceholder").innerText = login;
-    }
-
     function profiles() {
+      const login = getCookie("login");
       const codeforces = document.getElementById("codeforces").value;
       const acmp = document.getElementById("acmp").value;
       const yandex = document.getElementById("yandex").value;
@@ -182,59 +190,16 @@
         })
         .then((data) => {
           console.log(data);
-          document.cookie = `login=${login}; path=/`;
-          document.cookie = `login=${codeforces}; path=/`;
-          document.cookie = `login=${acmp}; path=/`;
-          document.cookie = `login=${yandex}; path=/`;
+          // Assuming you want to set different cookies for each service
+          document.cookie = `codeforces=${codeforces}; path=/`;
+          document.cookie = `acmp=${acmp}; path=/`;
+          document.cookie = `yandex=${yandex}; path=/`;
         })
         .catch((error) => {
           console.error("There was a problem updating the profile:", error);
         });
     }
 
-    document.addEventListener("DOMContentLoaded", function () {
-      const login = getCookie("login");
-      if (login) {
-        document.getElementById("usernamePlaceholder").innerText = login;
-      }
-    });
-  </script>
-  <script type="module">
-    import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
-
-    const width = 640;
-    const height = 400;
-    const marginTop = 20;
-    const marginRight = 20;
-    const marginBottom = 30;
-    const marginLeft = 40;
-
-    const x = d3.scaleUtc()
-      .domain([new Date("2023-01-01"), new Date("2024-01-01")])
-      .range([marginLeft, width - marginRight]);
-
-    // Declare the y (vertical position) scale.
-    const y = d3.scaleLinear()
-      .domain([0, 100])
-      .range([height - marginBottom, marginTop]);
-
-    // Create the SVG container.
-    const svg = d3.create("svg")
-      .attr("width", width)
-      .attr("height", height);
-
-    // Add the x-axis.
-    svg.append("g")
-      .attr("transform", `translate(0,${height - marginBottom})`)
-      .call(d3.axisBottom(x));
-
-    // Add the y-axis.
-    svg.append("g")
-      .attr("transform", `translate(${marginLeft},0)`)
-      .call(d3.axisLeft(y));
-
-    // Append the SVG element.
-    container.append(svg.node());
   </script>
 
 </body>
