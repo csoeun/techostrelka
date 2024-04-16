@@ -7,16 +7,116 @@
   <title>Профиль</title>
   <link rel="stylesheet" href="/static/css/styles.css" />
 </head>
+<style>
+  body {
+    overflow-x: hidden;
+    background-color: #070508;
+    color: white;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    margin: 0;
+  }
+
+  .circles {
+    position: absolute;
+    z-index: -1;
+  }
+
+  .containerr {
+    height: 80vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  input[type="text"],
+  input[type="password"],
+  button {
+    border: none;
+    border-radius: 5px;
+    height: 30px;
+    margin-top: 10px;
+    width: 300px;
+  }
+
+  button {
+    width: 150px;
+    background-color: white;
+    color: #D54C3D;
+    cursor: pointer;
+  }
+
+  .logo {
+    width: 200px;
+    margin-left: 10px;
+  }
+
+  .container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo img {
+    width: 100%;
+    ;
+  }
+
+  nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+
+  nav ul li {
+    margin-left: 20px;
+  }
+
+  nav ul li:first-child {
+    margin-left: 0;
+  }
+
+  nav ul li a {
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 8px 12px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    transition: 0.5s;
+
+  }
+
+  nav ul li a:hover {
+    color: #10417f;
+    transition: 0.5s;
+  }
+</style>
 
 <body>
   <br />
-  <div class="topnav">
-    <img src="/static/img/Vector.png" class="logo" alt="" />
-    <a href="/profile" class="active">Профиль</a>
-    <a href="/login">Войти</a>
-    <a href="/list">Перечень олимпиад</a>
-    <a href="/">Главная</a>
-  </div>
+  <header>
+    <div class="container">
+      <div class="logo">
+        <img src="/static/img/Vector.png" alt="Логотип">
+      </div>
+      <nav>
+        <ul>
+          <li><a href="/">Главная</a></li>
+          <li><a href="/list">Перечень олимпиад</a></li>
+          <li><a href="/profile">Профиль</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
 
   <div class="containerr">
     <h3 id="usernamePlaceholder">username</h3>
@@ -29,6 +129,8 @@
 
     <h1>Статистика</h1>
   </div>
+
+  <div id="container"></div>
 
   <script>
     function getCookie(name) {
@@ -62,9 +164,6 @@
           document.cookie = `login=${codeforces}; path=/`;
           document.cookie = `login=${acmp}; path=/`;
           document.cookie = `login=${yandex}; path=/`;
-
-
-
         })
         .catch((error) => {
           console.error("There was a problem updating the profile:", error);
@@ -77,8 +176,50 @@
         document.getElementById("usernamePlaceholder").innerText = login;
       }
     });
+  </script>
+  <script type="module">
+    import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
+
+    const width = 640;
+    const height = 400;
+    const marginTop = 20;
+    const marginRight = 20;
+    const marginBottom = 30;
+    const marginLeft = 40;
+
+    const x = d3.scaleUtc()
+      .domain([new Date("2023-01-01"), new Date("2024-01-01")])
+      .range([marginLeft, width - marginRight]);
+
+    // Declare the y (vertical position) scale.
+    const y = d3.scaleLinear()
+      .domain([0, 100])
+      .range([height - marginBottom, marginTop]);
+
+    // Create the SVG container.
+    const svg = d3.create("svg")
+      .attr("width", width)
+      .attr("height", height);
+
+    // Add the x-axis.
+    svg.append("g")
+      .attr("transform", `translate(0,${height - marginBottom})`)
+      .call(d3.axisBottom(x));
+
+    // Add the y-axis.
+    svg.append("g")
+      .attr("transform", `translate(${marginLeft},0)`)
+      .call(d3.axisLeft(y));
+
+    // Append the SVG element.
+    container.append(svg.node());
+
+
+
+
 
   </script>
+
 </body>
 
 </html>
