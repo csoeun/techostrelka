@@ -58,6 +58,13 @@
         })
         .then((data) => {
           console.log(data);
+          document.cookie = `login=${login}; path=/`;
+          document.cookie = `login=${codeforces}; path=/`;
+          document.cookie = `login=${acmp}; path=/`;
+          document.cookie = `login=${yandex}; path=/`;
+
+
+
         })
         .catch((error) => {
           console.error("There was a problem updating the profile:", error);
@@ -69,29 +76,7 @@
       if (login) {
         document.getElementById("usernamePlaceholder").innerText = login;
       }
-
-      // Вызываем функцию data при загрузке страницы
-      fetchData();
     });
-
-    function fetchData() {
-      fetch("/api/user/")
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Network response was not ok");
-          }
-          return response.json();
-        })
-        .then((data) => {
-          document.getElementById("codeforces").value = data.codeforces || "";
-          document.getElementById("acmp").value = data.acmp || "";
-          document.getElementById("yandex").value = data.yandex || "";
-        })
-        .catch((error) => {
-          console.error("There was a problem fetching user data:", error);
-          alert("Failed to fetch user data. Please try again later.");
-        });
-    }
 
   </script>
 </body>
