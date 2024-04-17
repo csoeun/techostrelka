@@ -140,8 +140,6 @@
     <h3 id="usernamePlaceholder">username</h3>
 
     <input type="text" placeholder="Codeforces" id="codeforces">
-    <input type="text" placeholder="ACMP" id="acmp">
-    <input type="text" placeholder="Яндекс.Контест" id="yandex">
 
     <button onclick="profiles()">Привязать</button>
 
@@ -151,36 +149,29 @@
   <div id="container"></div>
 
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const login = getCookie("login");
-      if (login) {
-        document.getElementById("usernamePlaceholder").innerText = login;
-      }
-
-      const submitButton = document.getElementById("submitProfileButton");
-      if (submitButton) {
-        submitButton.addEventListener("click", profiles);
-      }
-    });
-
     function getCookie(name) {
       const value = `; ${document.cookie}`;
       const parts = value.split(`; ${name}=`);
       if (parts.length === 2) return parts.pop().split(";").shift();
     }
 
+
+
+    const login = getCookie("login");
+    if (login) {
+      document.getElementById("usernamePlaceholder").innerText = login;
+    }
+
     function profiles() {
-      const login = getCookie("login");
       const codeforces = document.getElementById("codeforces").value;
-      const acmp = document.getElementById("acmp").value;
-      const yandex = document.getElementById("yandex").value;
+
 
       fetch("/api/user/edit", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ codeforces, acmp, yandex, login }),
+        body: JSON.stringify({ codeforces }),
       })
         .then((response) => {
           if (!response.ok) {
@@ -190,16 +181,20 @@
         })
         .then((data) => {
           console.log(data);
-          // Assuming you want to set different cookies for each service
-          document.cookie = `codeforces=${codeforces}; path=/`;
-          document.cookie = `acmp=${acmp}; path=/`;
-          document.cookie = `yandex=${yandex}; path=/`;
+          document.cookie = `login=${login}; path=/`;
+          document.cookie = `login=${codeforces}; path=/`;
         })
         .catch((error) => {
           console.error("There was a problem updating the profile:", error);
         });
     }
 
+    document.addEventListener("DOMContentLoaded", function () {
+      const login = getCookie("login");
+      if (login) {
+        document.getElementById("usernamePlaceholder").innerText = login;
+      }
+    });
   </script>
 
 </body>
