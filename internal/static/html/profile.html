@@ -106,6 +106,13 @@
       animation-delay: 1s;
     }
 
+    .chart-container {
+      width: 80vw;
+      max-width: 800px;
+      margin: 20px auto;
+      display: none;
+    }
+
     @keyframes fadeIn {
       from {
         opacity: 0;
@@ -146,16 +153,50 @@
     <h1>Статистика</h1>
   </div>
 
-  <div id="container"></div>
+  <div class="container chart-container">
+    <canvas id="myChart"></canvas>
+  </div>
 
+  <div id="container"></div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
+    let myChart; // Объявляем переменную для хранения графика
+
     function getCookie(name) {
       const value = `; ${document.cookie}`;
       const parts = value.split(`; ${name}=`);
       if (parts.length === 2) return parts.pop().split(";").shift();
     }
 
+    document.addEventListener("DOMContentLoaded", function () {
+      const ctx = document.getElementById("myChart").getContext("2d");
 
+      myChart = new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: ["Янв", "Фев", "Мар", "Апр", "Май"],
+          datasets: [{
+            label: "Твой рейтинг",
+            data: [0, 0, 0, 0, 0],
+            backgroundColor: "rgba(255, 99, 132, 0.2)",
+            borderColor: "rgba(255, 99, 132, 1)",
+            borderWidth: 1,
+          }],
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
+      });
+
+      // Показываем график после нажатия кнопки "Привязать"
+      document.querySelector('button').addEventListener('click', function () {
+        document.querySelector('.chart-container').style.display = 'block';
+      });
+    });
 
     const login = getCookie("login");
     if (login) {
@@ -165,13 +206,24 @@
     function profiles() {
       const codeforces = document.getElementById("codeforces").value;
 
+      // Условие для задания рейтинга
+      let rating = 0;
+      if (codeforces.toLowerCase() === "lm3allem") {
+        rating = 0;
+      } else {
+        rating = Math.floor(Math.random() * 100) + 1; // случайное число от 1 до 100
+      }
+
+      // Обновляем данные графика
+      myChart.data.datasets[0].data = [rating, rating, rating, rating, rating];
+      myChart.update(); // Перерисовываем график
 
       fetch("/api/user/edit", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ codeforces }),
+        body: JSON.stringify({ codeforces, rating }), // передаем рейтинг
       })
         .then((response) => {
           if (!response.ok) {
